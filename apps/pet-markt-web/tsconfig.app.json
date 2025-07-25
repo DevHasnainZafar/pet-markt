@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "types": ["node"],
+    "composite": false,
+    "emitDeclarationOnly": false,
+    "declaration": false,
+    "moduleResolution": "bundler",
+    "module": "esnext",
+    "lib": ["es2022", "dom"],
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": [
+    "jest.config.ts",
+    "src/test-setup.ts",
+    "src/**/*.test.ts",
+    "src/**/*.spec.ts"
+  ]
+}
