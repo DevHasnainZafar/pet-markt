@@ -1,17 +1,33 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule, JsonPipe } from '@angular/common';
+import { afterNextRender, Component, inject } from '@angular/core';
 import { ProductStore } from '../stores/product.store';
-
+import { ProductCard } from './product-card/product-card';
+import { FormsModule } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
+import untilDestroyed from '../utils/untilDestroyed';
 @Component({
   selector: 'app-products',
-  imports: [CommonModule, JsonPipe],
+  imports: [ProductCard, FormsModule],
   templateUrl: './products.html',
   styleUrl: './products.scss',
 })
-export class Products implements OnInit {
+export class Products {
+  searchTerm = '';
   productStore = inject(ProductStore);
-  
-  ngOnInit() {
+  searchSubject = new Subject<string>();
+  destroyed = untilDestroyed();
+
+  constructor() {
     this.productStore.loadProducts();
+    afterNextRender(() => {
+      this.searchSubject
+        .pipe(debounceTime(500), distinctUntilChanged(), this.destroyed())
+        .subscribe((term) => {
+          this.productStore.searchProducts(term);
+        });
+    });
+  }
+
+  onSearch(term: string) {
+    this.searchSubject.next(term);
   }
 }
