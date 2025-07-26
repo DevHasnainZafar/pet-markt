@@ -36,11 +36,22 @@
           </td>
           <td>${{ item.price | number : "1.2-2" }}</td>
           <td>
-            <input [value]="item.quantity" (change)="updateQuantity(item.id,$event)" type="number" class="input input-bordered w-20" min="1" />
+            <input
+              [value]="item.quantity"
+              (change)="updateQuantity(item.id,$event)"
+              type="number"
+              class="input input-bordered w-20"
+              min="1"
+            />
           </td>
           <td>${{ item.price * item.quantity | number : "1.2-2" }}</td>
           <td>
-            <button class="btn btn-ghost btn-sm">Remove</button>
+            <button
+              (click)="cartStore.removeFromCard(item.id)"
+              class="btn btn-ghost btn-sm"
+            >
+              Remove
+            </button>
           </td>
         </tr>
         }
@@ -51,10 +62,12 @@
   <div class="flex justify-between items-center">
     <div>
       <!-- cart total -->
-      <p class="text-xl">Total: ${{ cartStore.totalAmount() | number : "1.2-2" }}</p>
+      <p class="text-xl">
+        Total: ${{ cartStore.totalAmount() | number : "1.2-2" }}
+      </p>
     </div>
     <div class="space-x-4">
-      <button class="btn">Clear Cart</button>
+      <button class="btn" (click)="cartStore.clearCart()">Clear Cart</button>
       <a routerLink="/checkout" class="btn btn-primary">Proceed to Checkout</a>
     </div>
   </div>
