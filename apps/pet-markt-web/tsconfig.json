@@ -1,10 +1,21 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "target": "es2022",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
-    "experimentalDecorators": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "composite": false,
+    "emitDeclarationOnly": false,
+    "declaration": false,
     "moduleResolution": "bundler",
-    "module": "preserve"
+    "module": "esnext",
+    "lib": ["es2022", "dom"],
+    "allowSyntheticDefaultImports": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
